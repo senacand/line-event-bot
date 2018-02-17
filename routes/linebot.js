@@ -125,7 +125,8 @@ router.post('/webhook', function(req, res, next) {
 									]);
 								}
 								else {
-									const command = text.split(' ', 3);
+                                    var command = cmd.slice(0, 2);
+                                    command.push(cmd.slice(2).join(" "));
 									const eventId = command[1].toLowerCase();
 									const eventDescription = command[2];
 									var event = await Event.findOne({
