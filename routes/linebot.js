@@ -216,7 +216,8 @@ getStatus = async (groupId, eventId) => {
 		var count = 1;
 		event.participants.forEach((e) => {
 			message += `${count++}. ${e.displayName}\n`;
-		});
+        });
+        message += `\nType '/join ${event.eventId}' to join.`;
 		return message;
 	}
 };
