@@ -230,8 +230,9 @@ getEvents = async (groupId) => {
 	var count = 1;
 	message += 'Events in this group:\n';
 	events.forEach((e) => {
-		message += `${count++}. ${e.eventId}`;
-	});
+		message += `${count++}. ${e.eventId}\n`;
+    });
+    message += "\nType '/status [eventId]' to check the status of the event."
 	return message;
 };
 
