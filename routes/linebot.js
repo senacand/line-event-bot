@@ -76,11 +76,16 @@ router.post('/webhook', function(req, res, next) {
 												});
 											}
 											else {
-                                                const user = await client.getProfile(userId);
+                                                var user = null;
+                                                try{
+                                                    user = await client.getProfile(userId);
+                                                } catch(e) {
+                                                    console.log(e);
+                                                }
                                                 if(!user){
                                                     client.replyMessage(replyToken, {
                                                         type: 'text',
-                                                        text: 'Please add me as a friend before proceeding :)'
+                                                        text: 'Please add me as a friend before proceeding.'
                                                     });
                                                 }
                                                 else {
