@@ -76,20 +76,28 @@ router.post('/webhook', function(req, res, next) {
 												});
 											}
 											else {
-												const user = await client.getProfile(userId);
-												const { displayName } = user;
-												event.participants.push({
-													userId,
-													displayName
-												});
-												await event.save();
-												const message = await this.getStatus(groupId, eventId);
-												if (message) {
-													client.replyMessage(replyToken, {
-														type: 'text',
-														text: message
-													});
-												}
+                                                const user = await client.getProfile(userId);
+                                                if(!user){
+                                                    client.replyMessage(replyToken, {
+                                                        type: 'text',
+                                                        text: 'Please add me as a friend before proceeding :)'
+                                                    });
+                                                }
+                                                else {
+                                                    const { displayName } = user;
+                                                    event.participants.push({
+                                                        userId,
+                                                        displayName
+                                                    });
+                                                    await event.save();
+                                                    const message = await this.getStatus(groupId, eventId);
+                                                    if (message) {
+                                                        client.replyMessage(replyToken, {
+                                                            type: 'text',
+                                                            text: message
+                                                        });
+                                                    }
+                                                }
 											}
 										}
 									} catch (err) {
